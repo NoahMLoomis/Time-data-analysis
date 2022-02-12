@@ -10,6 +10,7 @@ export default function Home() {
   useEffect(() => {
     fetch("/api/data").then(d => d.json())
       .then(d => {
+        console.log(d)
         setData(d)
       })
   }, [])
@@ -36,16 +37,7 @@ export default function Home() {
         </div>
 
         <div className={styles.section}>
-
-          <div className={styles.grid}>
-            <div >
-              {/* <BarChart /> */}
-              {/* TODO: Bar Chart */}
-            </div>
-            <div>
-              {/* TODO: Pie Chart */}
-            </div>
-          </div>
+          {/* TODO: Add world comp here */}
         </div>
       </main>
 

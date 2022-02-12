@@ -12,6 +12,9 @@
   align-items: center;
 }
 
+.barChart {
+  margin: 0 auto;
+}
 .section {
   min-height: 50vh;
   padding: 4rem 0;

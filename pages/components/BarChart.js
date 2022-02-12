@@ -5,55 +5,53 @@ import useD3 from '../hooks/useD3'
 const BarChart = ({ data }) => {
     const ref = useD3(
         (svg) => {
-
             const height = 500;
-            const width = 500;
-            const margin = 50;
-
+            const width = 800;
+            const margin = {top: 20, right: 10, bottom: 20, left: 10};
 
             const x = d3
-                .scaleBand()
-                .domain(data.map((d) => d.Country))
-                .rangeRound([margin, width - margin])
-                .padding(0.5);
+                .scaleLinear()
+                .domain([0, d3.max(data, d => d["Time (minutes)"])])
+                .rangeRound([margin.left, width])
 
             const y = d3
-                .scaleLinear()
-                .domain([0, d3.max(data, d => {
-                    console.log(d)
-                    return d["Time (minutes)"]
-                })])
-                .rangeRound([height - margin, margin]);
+                .scaleBand()
+                .domain(data.map((d) => d.Country))
+                .rangeRound([height - margin.bottom, margin.top])
+                .padding(0.2);
 
             const xAxis = (g) =>
-                g.attr("transform", `translate(0,${height - margin})`).call(
-                    d3
-                        .axisBottom(x)
-                        .tickValues(
-                            d3
-                                .ticks(...d3.extent(x.domain()), width / 40)
-                                .filter((v) => x(v) !== undefined)
-                        )
-                        .tickSizeOuter(0)
-                );
+                g.attr("transform", `translate(0,${height - margin.bottom})`)
+                    .call(d3.axisBottom(x).ticks(null, "s").tickSizeOuter(0))
+
 
             const yAxis = (g) => g
-                .attr("transform", `translate(${margin},0)`)
+                .attr("transform", `translate(${margin.left},0)`)
                 .style("color", "steelblue")
-                .call(d3.axisLeft(y).ticks(null, "s"))
+                .call(d3.axisRight(y).ticks(d => d.Country))
                 .call((g) => g.select(".domain").remove())
                 .call((g) => g
                     .append("text")
-                    .attr("x", -margin)
-                    .attr("y", 10)
+                    .attr("x", -margin.left)
+                    .attr("y", 20)
                     .attr("fill", "currentColor")
                     .attr("text-anchor", "start")
-                    .text(data.y)
                 );
 
-            svg.select(".x-axis").call(xAxis);
-            svg.select(".y-axis").call(yAxis);
+            svg.select(".x-axis")
+                .call(xAxis)
+                .selectAll("text")
+                .style("text-anchor", "end")
+                .attr("dx", ".7em")
+                .attr("dy", ".5em")
 
+
+
+            svg.select(".y-axis").call(yAxis)
+                .selectAll("text")
+                .style("text-anchor", "end")
+                .attr("dx", ".7em")
+                .attr("dy", ".5em")
             svg
                 .select(".plot-area")
                 .attr("fill", "steelblue")
@@ -61,20 +59,23 @@ const BarChart = ({ data }) => {
                 .data(data)
                 .join("rect")
                 .attr("class", "bar")
-                .attr("x", (d) => x(d.Country))
-                .attr("width", x.bandwidth())
-                .attr("y", (d) => y(d["Time (minutes)"]))
-                .attr("height", (d) => y(0) - y(d["Time (minutes)"]));
+                .attr("x", (d) => x(d["Time (minutes)"]))
+                .attr("height", y.bandwidth())
+                .attr("y", (d) => y(d.Country))
+                .attr("width", (d) => x(d["Time (minutes)"]))
         },
         [data.length]
     )
 
     return (
         <svg
+            className='barChart'
             ref={ref}
             style={{
                 height: 500,
                 width: "100%",
+                marginRight: "0px",
+                marginLeft: "0px",
             }}
         >
             <g className="plot-area" />

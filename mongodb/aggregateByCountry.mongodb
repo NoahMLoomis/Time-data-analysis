@@ -1,0 +1,3 @@
+use("DataAnalysis")
+
+db.time_use.aggregate()
