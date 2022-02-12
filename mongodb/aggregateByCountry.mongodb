@@ -1,3 +1,11 @@
 use("DataAnalysis")
 
-db.time_use.aggregate()
+db.time_use.find()
+
+db.time_use.aggregate([
+    {$match: {Country: "Australia"}},
+    {$group: {_id: "Country",
+            "Total time:" : {$sum: "$Time (minutes)"}
+    }}
+])
+
