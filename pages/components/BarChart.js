@@ -6,52 +6,46 @@ const BarChart = ({ data }) => {
     const ref = useD3(
         (svg) => {
             const height = 500;
-            const width = 800;
-            const margin = {top: 20, right: 10, bottom: 20, left: 10};
+            const width = 500;
+            const margin = { top: 20, right: 10, bottom: 20, left: 100 };
 
-            const x = d3
-                .scaleLinear()
-                .domain([0, d3.max(data, d => d["Time (minutes)"])])
-                .rangeRound([margin.left, width])
+            const x = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.time)])
+                .range([margin.left, width - margin.right])
+                .interpolate(d3.interpolateRound)
 
-            const y = d3
-                .scaleBand()
-                .domain(data.map((d) => d.Country))
-                .rangeRound([height - margin.bottom, margin.top])
-                .padding(0.2);
+            const y = d3.scaleBand()
+                .domain(data.map(d => d._id))
+                .rangeRound([margin.top, height - margin.bottom])
+                .padding(0.4)
 
-            const xAxis = (g) =>
+            const xAxis = g =>
                 g.attr("transform", `translate(0,${height - margin.bottom})`)
-                    .call(d3.axisBottom(x).ticks(null, "s").tickSizeOuter(0))
+                    .call(
+                        d3.axisBottom(x)
+                            .ticks(10)
+                            .tickSizeOuter(0)
+                    )
+
+            const yAxis = g => {
+                g.attr("transform", `translate(${margin.left},0)`)
+                    .style("color", "steelblue")
+                    .call(d3.axisLeft(y))
+                    .call((g) => g.select(".domain").remove())
+            }
 
 
-            const yAxis = (g) => g
-                .attr("transform", `translate(${margin.left},0)`)
-                .style("color", "steelblue")
-                .call(d3.axisRight(y).ticks(d => d.Country))
-                .call((g) => g.select(".domain").remove())
-                .call((g) => g
-                    .append("text")
-                    .attr("x", -margin.left)
-                    .attr("y", 20)
-                    .attr("fill", "currentColor")
-                    .attr("text-anchor", "start")
-                );
+            d3.axisBottom()
+                .scale(x)
 
-            svg.select(".x-axis")
+            d3.axisLeft(y)
+                .scale(y)
+
+            svg.select('.x-axis')
                 .call(xAxis)
-                .selectAll("text")
-                .style("text-anchor", "end")
-                .attr("dx", ".7em")
-                .attr("dy", ".5em")
 
-
-
-            svg.select(".y-axis").call(yAxis)
-                .selectAll("text")
-                .style("text-anchor", "end")
-                .attr("dx", ".7em")
-                .attr("dy", ".5em")
+            svg.select('.y-axis')
+                .call(yAxis)
             svg
                 .select(".plot-area")
                 .attr("fill", "steelblue")
@@ -59,21 +53,19 @@ const BarChart = ({ data }) => {
                 .data(data)
                 .join("rect")
                 .attr("class", "bar")
-                .attr("x", (d) => x(d["Time (minutes)"]))
+                .attr("x", d => x(0))
+                .attr("y", d => y(d._id))
+                // .attr("width", y.bandwidth())
                 .attr("height", y.bandwidth())
-                .attr("y", (d) => y(d.Country))
-                .attr("width", (d) => x(d["Time (minutes)"]))
-        },
-        [data.length]
-    )
+                .attr("width", d => x(d.time) - x(0));
+
+        })
 
     return (
         <svg
             className='barChart'
             ref={ref}
             style={{
-                height: 500,
-                width: "100%",
                 marginRight: "0px",
                 marginLeft: "0px",
             }}

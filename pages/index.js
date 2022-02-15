@@ -27,17 +27,16 @@ export default function Home() {
         <div className={styles.section}>
           <h1 className={styles.title}>
             How do we spend our time?
-        </h1>
+          </h1>
         </div>
 
-        <BarChart data={data} />
 
         <div className={styles.section}>
           {/* TODO: Add world comp here */}
         </div>
 
         <div className={styles.section}>
-          {/* TODO: Add world comp here */}
+          <BarChart data={data} />
         </div>
       </main>
 

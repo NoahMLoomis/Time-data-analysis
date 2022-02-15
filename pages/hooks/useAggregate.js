@@ -1,13 +1,12 @@
 import { MongoClient } from "mongodb"
 
 
-const useAggregate = async (match = {}, group = {"_id": 1}, sort = {}) => {
+const useAggregate = async (match = {}, group = {"_id": 1}) => {
     const client = new MongoClient("mongodb://csdev.cegep-heritage.qc.ca:27017")
 
     const pipeline = [
         {"$match": match},
-        {"$group": group},
-        {"$sort": sort}
+        {"$group": group}
     ]
     
     try {
