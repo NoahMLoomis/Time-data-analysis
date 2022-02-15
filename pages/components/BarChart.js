@@ -55,7 +55,6 @@ const BarChart = ({ data }) => {
                 .attr("class", "bar")
                 .attr("x", d => x(0))
                 .attr("y", d => y(d._id))
-                // .attr("width", y.bandwidth())
                 .attr("height", y.bandwidth())
                 .attr("width", d => x(d.time) - x(0));
 
