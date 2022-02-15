@@ -1,19 +1,25 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import BarChart from '../pages/components/BarChart'
 import styles from '../styles/Home.module.css'
+import { DropdownButton, Dropdown } from 'react-bootstrap'
 
 export default function Home() {
   const [data, setData] = useState([])
+  const [categories, setCategories] = useState([])
+  const [category, setCategory] = useState("Paid work")
 
+  console.log(category)
   useEffect(() => {
-    fetch("/api/data").then(d => d.json())
-      .then(d => {
-        console.log(d)
-        setData(d)
-      })
-  }, [])
+    fetch(`/api/data/countries?category=${category}`).then(d => d.json())
+      .then(d => setData(d))
+
+    fetch("/api/data/categories").then(d => d.json())
+      .then(d => setCategories(d.map(i => i._id)))
+  }, [category])
 
   return (
     <div className={styles.container}>
@@ -30,12 +36,16 @@ export default function Home() {
           </h1>
         </div>
 
-
         <div className={styles.section}>
           {/* TODO: Add world comp here */}
         </div>
 
         <div className={styles.section}>
+          <DropdownButton title={category}>
+            {categories.map(cat => (
+              <Dropdown.Item key={cat} onClick={() => setCategory(cat)}>{cat}</Dropdown.Item>
+            ))}
+          </DropdownButton>
           <BarChart data={data} />
         </div>
       </main>
