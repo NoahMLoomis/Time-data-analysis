@@ -52,11 +52,15 @@ const BarChart = ({ data }) => {
                 .selectAll(".bar")
                 .data(data)
                 .join("rect")
+                .attr("y", d => y(d._id))
+                .attr("x", d => x(0))
+                .transition()
+                .duration(1000)
                 .attr("class", "bar")
                 .attr("x", d => x(0))
                 .attr("y", d => y(d._id))
                 .attr("height", y.bandwidth())
-                .attr("width", d => x(d.time) - x(0));
+                .attr("width", d => x(d.time) - x(0))
 
         })
 

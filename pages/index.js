@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
-
+import { DropdownButton, Dropdown } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import BarChart from '../pages/components/BarChart'
+import WorldMap from '../pages/components/WorldMap'
 import styles from '../styles/Home.module.css'
-import { DropdownButton, Dropdown } from 'react-bootstrap'
 
 export default function Home() {
   const [data, setData] = useState([])
@@ -37,7 +37,7 @@ export default function Home() {
         </div>
 
         <div className={styles.section}>
-          {/* TODO: Add world comp here */}
+        <WorldMap />
         </div>
 
         <div className={styles.section}>
