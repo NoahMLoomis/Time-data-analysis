@@ -7,14 +7,16 @@ import {
     ZoomableGroup
 } from "react-simple-maps";
 
+import { scaleLinear } from "d3-scale";
+
 const geoUrl =
     "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
 const colorScale = scaleLinear()
-    .domain([0.29, 0.68])
-    .range(["#8fbff7", "#0070f3"]);
+    .domain([0, 100])
+    .range(["orange", "red"]);
 
-const WorldMap = () => {
+const WorldMap = ({ data }) => {
     return (
         <ComposableMap
             projectionConfig={{
@@ -24,11 +26,16 @@ const WorldMap = () => {
         >
             <Sphere stroke="#E4E5E6" strokeWidth={0.5} />
             <Graticule stroke="#E4E5E6" strokeWidth={0.5} />
-            <Geographies geography={geoUrl}>
-                {({ geographies }) =>
-                    geographies.map((geo) => <Geography key={geo.rsmKey} geography={geo} fill="grey" />)
-                }
-            </Geographies>
+            {data.length > 0 && (
+                <Geographies geography={geoUrl}>
+                    {({ geographies }) =>
+                        geographies.map((geo) => {
+                            const d = data.find((d) => d._id.toLowerCase() === geo.properties.NAME.toLowerCase());
+                            return <Geography key={geo.rsmKey} geography={geo} fill={d ? colorScale(d.time) : "black"} />
+                        })
+                    }
+                </Geographies>
+            )}
         </ComposableMap>
     )
 }
