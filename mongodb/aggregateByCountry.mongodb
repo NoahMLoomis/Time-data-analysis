@@ -1,12 +1,9 @@
 use("DataAnalysis")
 
-db.time_use.find()
+db.time_use.find({}, {Category: 1})
 
 db.time_use.aggregate([
-    {$match: {Category: "Paid work"}},
-    {$group: {_id: "$Country",
-            "Time" : {$sum: "$Time (minutes)"}
-    }},
-    {$sort: {_id: 1}}
+    {$match: {}},
+    {$group: {_id: "$Category"}}
 ])
 

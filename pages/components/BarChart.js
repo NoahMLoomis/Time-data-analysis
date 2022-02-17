@@ -34,7 +34,6 @@ const BarChart = ({ data }) => {
                     .call((g) => g.select(".domain").remove())
             }
 
-
             d3.axisBottom()
                 .scale(x)
 
@@ -42,18 +41,24 @@ const BarChart = ({ data }) => {
                 .scale(y)
 
             svg.select('.x-axis')
+                .attr("transform", `translate(0,${height - margin.bottom})`)
+                .transition()
+                .duration(1000)
                 .call(xAxis)
+
+
 
             svg.select('.y-axis')
                 .call(yAxis)
             svg
                 .select(".plot-area")
-                .attr("fill", "steelblue")
+                .attr("fill", "#0070f3")
                 .selectAll(".bar")
                 .data(data)
                 .join("rect")
                 .attr("y", d => y(d._id))
                 .attr("x", d => x(0))
+                .attr("height", y.bandwidth())
                 .transition()
                 .duration(1000)
                 .attr("class", "bar")
