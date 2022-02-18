@@ -2,4 +2,4 @@ use("DataAnalysis")
 
 // db.time_use.find({}, {Category: 1})
 
-db.time_use.distinct("Country")
+db.time_use.distinct("Category")
