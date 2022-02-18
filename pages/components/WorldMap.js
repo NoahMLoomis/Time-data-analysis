@@ -13,7 +13,7 @@ const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-map
 const WorldMap = ({ data }) => {
 
     const colorScale = d3.scaleLinear()
-        .domain([d3.min(data.map(d => d.time)), d3.max(data.map(d => d.time))])
+        .domain([0, 10])
         // .domain([d3.min(data.map(d => d.time)), d3.max(data.map(d => d.time))])
         .range(["#ffedea", "#ff5233"]);
 
