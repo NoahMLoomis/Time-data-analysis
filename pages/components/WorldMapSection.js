@@ -8,16 +8,16 @@ const WorldMapSection = () => {
 
     useEffect(async () => {
         setInterval(async () => {
-        await fetch("/api/data/categories").then(d => d.json())
-            .then(d => {
-                const cats = d.map(i => i._id)
-                return cats[Math.floor(Math.random() * cats.length)]
-            })
-            .then(cat => {
-                setCat(cat)
-                fetch(`/api/data/countries?category=${cat}`).then(d => d.json())
-                    .then(d => setData(d))
-            })
+            await fetch("/api/data/categories").then(d => d.json())
+                .then(d => {
+                    const cats = d.map(i => i._id)
+                    return cats[Math.floor(Math.random() * cats.length)]
+                })
+                .then(cat => {
+                    setCat(cat)
+                    fetch(`/api/data/countries?category=${cat}`).then(d => d.json())
+                        .then(d => setData(d))
+                })
         }, [5000])
     }, [])
 

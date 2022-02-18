@@ -5,6 +5,7 @@ import WorldMapSection from './components/WorldMapSection'
 import BarChartSection from './components/BarChartSection'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import styles from '../styles/Home.module.css'
 
 export default function Home() {

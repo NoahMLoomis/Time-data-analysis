@@ -1,9 +1,5 @@
 use("DataAnalysis")
 
-db.time_use.find({}, {Category: 1})
+// db.time_use.find({}, {Category: 1})
 
-db.time_use.aggregate([
-    {$match: {}},
-    {$group: {_id: "$Category"}}
-])
-
+db.time_use.distinct("Country")

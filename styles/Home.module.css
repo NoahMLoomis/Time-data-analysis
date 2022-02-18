@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 .container {
   padding: 0 2rem;
 }
@@ -39,12 +40,14 @@
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+  text-decoration: none;
+  color: black;
 }
 
 .title a:hover,
 .title a:focus,
 .title a:active {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .title {
