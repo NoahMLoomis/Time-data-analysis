@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import styles from '../../styles/Home.module.css'
 
 import WorldMap from './WorldMap'
 
@@ -23,7 +24,7 @@ const WorldMapSection = () => {
 
     return (
         <>
-            <h1>{cat}</h1>
+            <h1 className={styles.categoryTitle}>{cat}</h1>
             <WorldMap data={data} />
         </>
     )

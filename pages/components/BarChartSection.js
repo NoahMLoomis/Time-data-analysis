@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { DropdownButton, Dropdown } from 'react-bootstrap'
-
 import BarChart from './BarChart'
 
 const BarChartSection = ({ allCategories }) => {

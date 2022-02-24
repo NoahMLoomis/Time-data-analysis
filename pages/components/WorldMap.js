@@ -13,11 +13,9 @@ const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-map
 const WorldMap = ({ data }) => {
 
     const colorScale = d3.scaleLinear()
-        // .domain([0, 10])
         .domain([(d3.min(data.map(d => d.time))/d3.max(data.map(d => d.time))), 1])
         .range(["#ffedea", "#ff5233"]);
 
-    console.log([d3.min(data.map(d => d.time)), d3.max(data.map(d => d.time))])
     /**
      * If you think this first return statement looks wrong, you're right.
      * The browser doesn't seem to like rendering the map at the proper size if you just return the <Watch /> component.

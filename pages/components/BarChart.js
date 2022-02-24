@@ -1,13 +1,15 @@
 import React from 'react';
 import * as d3 from 'd3';
+
 import useD3 from '../hooks/useD3'
+import { selectAll } from 'd3';
 
 const BarChart = ({ data }) => {
     const ref = useD3(
         (svg) => {
             const height = 500;
             const width = 500;
-            const margin = { top: 20, right: 10, bottom: 20, left: 100 };
+            const margin = { top: 20, right: 50, bottom: 20, left: 100 };
 
             const x = d3.scaleLinear()
                 .domain([0, d3.max(data, d => d.time)])
@@ -17,7 +19,7 @@ const BarChart = ({ data }) => {
             const y = d3.scaleBand()
                 .domain(data.map(d => d._id))
                 .rangeRound([margin.top, height - margin.bottom])
-                .padding(0.4)
+                .padding(0.2)
 
             const xAxis = g =>
                 g.attr("transform", `translate(0,${height - margin.bottom})`)
@@ -46,8 +48,6 @@ const BarChart = ({ data }) => {
                 .duration(1000)
                 .call(xAxis)
 
-
-
             svg.select('.y-axis')
                 .call(yAxis)
             svg
@@ -67,8 +67,31 @@ const BarChart = ({ data }) => {
                 .attr("height", y.bandwidth())
                 .attr("width", d => x(d.time) - x(0))
 
-        })
+            svg
+                .selectAll(".bar")
+                .on("mouseover", (event, d) => {
+                    d3.select(event.currentTarget)
+                        .transition()
+                        .duration(300)
+                        .style("fill", "#ff5233")
 
+                    d3.select(".plot-area").append("text")
+                        .attr("class", "barText")
+                        .attr("x", () => x(d.time) + 2)
+                        .attr("y", () => y(d._id) + 10)
+                        .text(d.time);
+                })
+                .on("mouseout", (event, d) => {
+                    console.log(d)
+                    d3.select(event.currentTarget)
+                        .transition()
+                        .duration(300)
+                        .style("fill", "#0070f3")
+                    d3.selectAll(".barText").remove()
+                })
+
+        })
+        
     return (
         <svg
             className='barChart'
@@ -76,6 +99,7 @@ const BarChart = ({ data }) => {
             style={{
                 marginRight: "0px",
                 marginLeft: "0px",
+                maxWidth: "700px"
             }}
         >
             <g className="plot-area" />
