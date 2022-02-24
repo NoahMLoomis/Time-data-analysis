@@ -19,7 +19,7 @@ const WorldMapSection = () => {
                     fetch(`/api/data/countries?category=${cat}`).then(d => d.json())
                         .then(d => setData(d))
                 })
-        }, [5000])
+        }, [4000])
     }, [])
 
     return (

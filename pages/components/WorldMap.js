@@ -6,6 +6,8 @@ import {
 } from "react-simple-maps";
 import * as d3 from 'd3';
 import { Watch } from "react-loader-spinner";
+import styles from '../../styles/Home.module.css'
+
 
 const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 

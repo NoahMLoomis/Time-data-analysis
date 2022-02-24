@@ -62,7 +62,7 @@ const BarChart = ({ data }) => {
                 .transition()
                 .duration(1000)
                 .attr("class", "bar")
-                .attr("x", d => x(0))
+                .attr("x", () => x(0))
                 .attr("y", d => y(d._id))
                 .attr("height", y.bandwidth())
                 .attr("width", d => x(d.time) - x(0))
@@ -77,21 +77,23 @@ const BarChart = ({ data }) => {
 
                     d3.select(".plot-area").append("text")
                         .attr("class", "barText")
-                        .attr("x", () => x(d.time) + 2)
+                        .style("font-size", '10px')
                         .attr("y", () => y(d._id) + 10)
+                        .attr("x", () => x(d.time* 0.99))
+                        .transition()
+                        .duration(300)
+                        .attr("x", () => x(d.time) + 2)
                         .text(d.time);
                 })
                 .on("mouseout", (event, d) => {
-                    console.log(d)
                     d3.select(event.currentTarget)
                         .transition()
                         .duration(300)
                         .style("fill", "#0070f3")
                     d3.selectAll(".barText").remove()
                 })
-
         })
-        
+
     return (
         <svg
             className='barChart'

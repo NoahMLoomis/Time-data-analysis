@@ -25,11 +25,9 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <div className={styles.section}>
           <h1 className={styles.title}>
             How do we spend our time?
           </h1>
-        </div>
 
         <div className={styles.section}>
           <WorldMapSection allCategories={allCategories} />
