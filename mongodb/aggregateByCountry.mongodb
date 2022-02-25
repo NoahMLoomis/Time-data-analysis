@@ -1,27 +1,25 @@
 use("DataAnalysis")
 
+db.time_use.distinct("Category")
 
-db.time_use./**
- * from: The target collection.
- * localField: The local join field.
- * foreignField: The target join field.
- * as: The name for the results.
- * pipeline: The pipeline to run on the joined collection.
- * let: Optional variables to use in the pipeline field stages.
- */
- aggregate([
+db.time_use.aggregate([
     {
         $lookup: {
             from: 'countries',
-            localField: 'Country',
-            foreignField: 'country',
-            as: 'matchedCounties'
+            let: {countryName: "$Country"},
+            pipeline: [
+              {$match: 
+                {$expr:
+                  {$eq: ["$country", "$$countryName"]}
+                }
+              },
+            ],
+            as: 'matchedCountries'
     }},
-    {/**
-     * specifications: The fields to
-     *   include or exclude.
-     */
+    {$unwind: "$matchedCountries"},
+    {
     $project: {
-      _id: "$matchedCounties.country", "region": "$matchedCounties.region"
-    }}
- ]).pretty()
+      _id: "$matchedCountries.country", "region": "$matchedCountries.region", "time": "$Time (minutes)", "category": "$Category" 
+    }},
+    {$group: {_id: {category: "$category", region: "$region"}, averageTime: {$avg: "$time"} }}
+ ])

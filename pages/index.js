@@ -3,6 +3,7 @@ import Head from 'next/head'
 
 import WorldMapSection from './components/WorldMapSection'
 import BarChartSection from './components/BarChartSection'
+import RegionSection from './components/RegionSection'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -25,16 +26,22 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-          <h1 className={styles.title}>
-            How do we spend our time?
-          </h1>
+        <h1 className={styles.title}>
+          How do we spend our time?
+        </h1>
 
         <div className={styles.section}>
           <WorldMapSection allCategories={allCategories} />
         </div>
 
-        <div className={styles.section}>
-          <BarChartSection allCategories={allCategories} />
+
+        <div className={styles.grid}>
+          <div className={styles.card}>
+            <RegionSection />
+          </div>
+          <div className={styles.card}>
+            <BarChartSection allCategories={allCategories} />
+          </div>
         </div>
       </main>
 
