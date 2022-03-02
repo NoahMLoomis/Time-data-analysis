@@ -31,7 +31,7 @@ export default function Home() {
         </h1>
 
         <div className={styles.section}>
-          <WorldMapSection allCategories={allCategories} />
+          <WorldMapSection />
         </div>
 
 
