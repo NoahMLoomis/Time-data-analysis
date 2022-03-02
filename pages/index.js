@@ -37,10 +37,10 @@ export default function Home() {
 
         <div className={styles.grid}>
           <div className={styles.card}>
-            <RegionSection />
+            <BarChartSection allCategories={allCategories} />
           </div>
           <div className={styles.card}>
-            <BarChartSection allCategories={allCategories} />
+            <RegionSection />
           </div>
         </div>
       </main>

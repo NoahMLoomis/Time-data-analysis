@@ -13,6 +13,10 @@
   align-items: center;
 }
 
+.table {
+  margin-top: 4.2em
+}
+
 .barChart {
   margin: 0 auto;
 }

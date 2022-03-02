@@ -28,7 +28,8 @@ const useLookup = async () => {
                     _id: "$matchedCountries.country", "region": "$matchedCountries.region", "time": "$Time (minutes)", "category": "$Category"
                 }
             },
-            { $group: { _id: { category: "$category", region: "$region" }, averageTime: { $avg: "$time" } } }
+            { $group: { _id: { category: "$category", region: "$region" }, averageTime: { $avg: "$time" } } },
+            { $sort: { "_id.region": 1, "_id.category": 1 } }
         ]).toArray()
     } catch (e) {
         console.log(e)

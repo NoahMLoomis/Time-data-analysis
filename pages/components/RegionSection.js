@@ -1,6 +1,7 @@
-import { useMemo, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { DropdownButton, Dropdown } from 'react-bootstrap'
-import { Table } from "react-bootstrap"
+
+import RegionTable from "./RegionTable"
 
 import styles from '../../styles/Home.module.css'
 
@@ -12,14 +13,14 @@ const RegionSection = () => {
     useEffect(() => {
         fetch("/api/data/regions").then(d => d.json())
             .then(d => {
+                console.log("fetching data")
                 setRegions([...new Set(d.map(item => item._id['region']))])
-                setCategoriesWithTime([...new Set(d.map(item => {
-                    return {category: item._id['category'], averageTime: item.averageTime}
-                }))])
-                console.log(categoriesWithTime)
+                setCategoriesWithTime([...new Set(d.map(item =>
+                    item._id['region'] === selectedRegion && { category: item._id['category'], averageTime: item.averageTime }
+                ))])
             })
             .catch(e => console.log(e))
-    }, [])
+    }, [selectedRegion])
 
     return (
         <>
@@ -29,19 +30,7 @@ const RegionSection = () => {
                     <Dropdown.Item key={reg} onClick={() => setSelectedRegion(reg)}>{reg}</Dropdown.Item>
                 ))}
             </DropdownButton>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Average time</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr>
-                    </tr>
-                </tbody>
-            </Table>
+            <RegionTable categoriesWithTime={categoriesWithTime} />
         </>
     )
 }
