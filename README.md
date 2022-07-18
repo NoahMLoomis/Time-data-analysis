@@ -5,19 +5,33 @@ The data is displayed in 3 formats:
 - A bar chart created in D3 that gives more precise control to the user to see countries and time use
 - A table that displays the average time spent per category by Region
 
+## Requirements
+- [node](https://nodejs.org/en/download/)
+
 
 ## Notes
 - The data is not as complete as it should be. For example, there is only one country for all of Africa (SA), and Australia is seen as a region, instead of a country
-- If this wasn't using the school's server to host the DB, i would deploy it with Vercel
+- [FINALLY MANAGED TO DEPLOY THIS WITH VERCEL!!!](https://data-analysis-7snn6cevt-noahmloomis.vercel.app/)
 
 ## Getting Started
 
-First, run the development server:
+First, clone the repo
+```bash
+git clone https://github.com/NoahMLoomis/data-analysis
+```
+Navigate to the project folder `/data-analysis`
+```bash
+cd ./data-analysis
+```
+
+Install packages, then start the development server:
 
 ```bash
+npm install
+
+# Followed by
+
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
