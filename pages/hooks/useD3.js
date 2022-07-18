@@ -12,7 +12,7 @@ const useD3 = (renderChartFn, dependencies) => {
             .attr("width", '100%')
             .attr("height", '100%'));
         return () => { };
-    }, dependencies);
+    }, [dependencies, renderChartFn]);
     return ref;
 }
 

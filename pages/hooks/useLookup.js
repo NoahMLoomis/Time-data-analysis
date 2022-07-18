@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb"
 
 
 const useLookup = async () => {
-    const client = new MongoClient("mongodb+srv://nloomis:nloomis@cluster0.akqxn.mongodb.net")
+    const client = new MongoClient(process.env.DB_URI)
     try {
         await client.connect()
         const arr = await client.db("DataAnalysis").collection("time_use").aggregate([

@@ -7,7 +7,7 @@ const WorldMapSection = () => {
     const [data, setData] = useState([])
     const [cat, setCat] = useState("")
 
-    useEffect(async () => {
+    useEffect(() => {
         setInterval(async () => {
             await fetch("/api/data/categories").then(d => d.json())
                 .then(d => {
