@@ -9,7 +9,7 @@ import { Watch } from "react-loader-spinner";
 import styles from '../../styles/Home.module.css'
 
 
-const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
+const geoUrl = "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json";
 
 
 const WorldMap = ({ data }) => {
@@ -47,7 +47,7 @@ const WorldMap = ({ data }) => {
                 <Geographies geography={geoUrl}>
                     {({ geographies }) =>
                         geographies.map((geo) => {
-                            const d = data.find((d) => d._id.toLowerCase() === geo.properties.NAME.toLowerCase() || d._id.toLowerCase() === geo.properties.NAME_LONG.toLowerCase());
+                            const d = data.find((d) => d._id.toLowerCase() === geo.properties.name.toLowerCase());
                             return <Geography key={geo.rsmKey} geography={geo} fill={d ? colorScale(d.time / 100) : "#F5F4F6"} stroke="black" strokeWidth={0.5} />
                         })
                     }

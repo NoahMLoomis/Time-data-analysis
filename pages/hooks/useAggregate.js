@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb"
 
 
 const useAggregate = async (match, group = { "_id": 1 }, sort) => {
-    const client = new MongoClient("mongodb://csdev.cegep-heritage.qc.ca:27017")
+    const client = new MongoClient("mongodb+srv://nloomis:nloomis@cluster0.akqxn.mongodb.net")
 
     let pipeline = [
         { "$match": match },
