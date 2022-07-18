@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head'
 
-import WorldMapSection from './components/WorldMapSection'
-import BarChartSection from './components/BarChartSection'
-import RegionSection from './components/RegionSection'
+import WorldMapSection from '../src/components/WorldMapSection'
+import BarChartSection from '../src/components/BarChartSection'
+import RegionSection from '../src/components/RegionSection'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
