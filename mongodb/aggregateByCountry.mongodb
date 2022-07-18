@@ -1,5 +1,5 @@
 use("DataAnalysis")
-
+// This file is used to practice queries
 db.time_use.distinct("Category")
 
 db.time_use.aggregate([
@@ -10,7 +10,7 @@ db.time_use.aggregate([
             pipeline: [
               {$match: 
                 {$expr:
-                  {$eq: ["$country", "$$countryName"]}
+                  {$eq: ["$name", "$$countryName"]}
                 }
               },
             ],

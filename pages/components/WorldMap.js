@@ -6,11 +6,8 @@ import {
 } from "react-simple-maps";
 import * as d3 from 'd3';
 import { Watch } from "react-loader-spinner";
-import styles from '../../styles/Home.module.css'
-
 
 const geoUrl = "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json";
-
 
 const WorldMap = ({ data }) => {
 

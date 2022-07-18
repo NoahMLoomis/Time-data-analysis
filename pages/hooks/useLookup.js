@@ -5,7 +5,7 @@ const useLookup = async () => {
     const client = new MongoClient("mongodb+srv://nloomis:nloomis@cluster0.akqxn.mongodb.net")
     try {
         await client.connect()
-        return await client.db("DataAnalysis").collection("time_use").aggregate([
+        const arr = await client.db("DataAnalysis").collection("time_use").aggregate([
             {
                 $lookup: {
                     from: 'countries',
@@ -15,7 +15,7 @@ const useLookup = async () => {
                             $match:
                             {
                                 $expr:
-                                    { $eq: ["$country", "$$countryName"] }
+                                    { $eq: ["$name", "$$countryName"] }
                             }
                         },
                     ],
@@ -31,6 +31,7 @@ const useLookup = async () => {
             { $group: { _id: { category: "$category", region: "$region" }, averageTime: { $avg: "$time" } } },
             { $sort: { "_id.region": 1, "_id.category": 1 } }
         ]).toArray()
+        return arr
     } catch (e) {
         console.log(e)
     } finally {

@@ -13,6 +13,7 @@ const RegionSection = () => {
     useEffect(() => {
         fetch("/api/data/regions").then(d => d.json())
             .then(d => {
+                console.log(d)
                 setRegions([...new Set(d.map(item => item._id['region']))])
                 setCategoriesWithTime([...new Set(d.map(item =>
                     item._id['region'] === selectedRegion && { category: item._id['category'], averageTime: item.averageTime }
