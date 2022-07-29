@@ -8,9 +8,10 @@ The data is displayed in 3 formats:
 ## Requirements
 - [node](https://nodejs.org/en/download/)
 
-
 ## Notes
+- There is a bug with the map displaying too small, to fix it, refresh the page when your browser is at full width
 - The data is not as complete as it should be. For example, there is only one country for all of Africa (SA), and Australia is seen as a region, instead of a country
+- Some of the data is not being displayed in the map, due to some of the country names being different. Ex: USA => U.S.A or United States of America
 - [FINALLY MANAGED TO DEPLOY THIS WITH VERCEL!!!](https://data-analysis-7snn6cevt-noahmloomis.vercel.app/)
 
 ## Getting Started
