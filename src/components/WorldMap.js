@@ -44,7 +44,13 @@ const WorldMap = ({ data }) => {
                 <Geographies geography={geoUrl}>
                     {({ geographies }) =>
                         geographies.map((geo) => {
-                            const d = data.find((d) => d._id.toLowerCase() === geo.properties.name.toLowerCase());
+                            const d = data.find((d) => {
+                                // I hate this fix
+                                if (d._id.toLowerCase() === "united states") {
+                                    return "united states of america" === geo.properties.name.toLowerCase()
+                                }
+                                return d._id.toLowerCase() === geo.properties.name.toLowerCase()
+                            });
                             return <Geography key={geo.rsmKey} geography={geo} fill={d ? colorScale(d.time / 100) : "#F5F4F6"} stroke="black" strokeWidth={0.5} />
                         })
                     }
